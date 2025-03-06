@@ -1,0 +1,141 @@
+/* Add these styles in your Home.css or import them globally */
+/* Slick Carousel Styles */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+}
+
+/* Dark Mode and Light Mode */
+.home-container.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.home-container.light-mode {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px; /* Adjusted padding to match other sections */
+  text-align: center;
+}
+
+.hero-content {
+  z-index: 2;
+  max-width: 1200px;
+  padding: 20px; /* Added padding for better spacing */
+}
+
+.hero-title {
+  font-size: 2.5rem; /* Reduced size to match other section titles */
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  margin: 20px 0;
+  font-weight: 300;
+}
+
+.explore-btn {
+  font-size: 1.2rem;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: 2px solid #fff;
+}
+
+.explore-btn:hover {
+  background-color: #ccc;
+  color: black;
+  transform: scale(1.1);
+}
+
+/* About Section */
+.about-section {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.about-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Features Section */
+.features-section {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.feature {
+  flex: 1;
+  max-width: 300px;
+  padding: 20px;
+  border: 2px solid #000;
+}
+
+.feature h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+/* Call to Action Section */
+.cta-section {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.cta-section p {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.cta-section .explore-btn {
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  border: 2px solid #000;
+}
+
+.cta-section .explore-btn:hover {
+  background-color: #ccc;
+  color: black;
+  transform: scale(1.1);
+}

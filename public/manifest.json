@@ -1,0 +1,30 @@
+{
+  "name": "Walls Ai",
+  "description": "Explore a curated collection of stunning AI-generated wallpapers, designed to transform your screen with futuristic and artistic visuals.",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "wallsai.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "wallsai.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}
