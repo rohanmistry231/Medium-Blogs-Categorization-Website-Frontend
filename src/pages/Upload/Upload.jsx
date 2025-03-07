@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
+import { motion } from "framer-motion";
 
 const UploadComponent = () => {
   const { theme } = useTheme();
@@ -40,11 +41,14 @@ const UploadComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/stories", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://medium-blogs-categorization-website-backend.vercel.app/stories",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to add story.");
@@ -59,118 +63,136 @@ const UploadComponent = () => {
   };
 
   return (
-    <div
-      className={`max-h-screen flex items-center justify-center p-8 mt-12 ${
+    <motion.div
+      className={`max-h-screen flex items-center justify-center p-8 mt-14 ${
         isDarkMode ? "bg-black text-white" : "bg-white text-black"
       }`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
     >
       {!isAuthorized ? (
-        <form
+        <motion.form
           onSubmit={handlePasswordSubmit}
-          className="w-full max-w-md space-y-4"
+          className="w-full max-w-md space-y-6"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h2 className="text-2xl font-bold">Enter Password</h2>
-          <input
+          <h2 className="text-2xl font-bold text-center">🔒 Prove You're Worthy! Enter the Secret Code:</h2>
+          <motion.input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter secret code"
-            className={`w-full p-2 rounded border ${
+            className={`w-full p-3 rounded-lg border text-lg ${
               isDarkMode ? "bg-black border-white" : "bg-white border-black"
             }`}
+            whileFocus={{ scale: 1.05 }}
             required
           />
-          <button
+          <motion.button
             type="submit"
-            className={`w-full p-2 rounded ${
+            className={`w-full p-3 rounded-lg text-lg font-semibold ${
               isDarkMode
                 ? "bg-white text-black hover:bg-gray-700"
                 : "bg-black text-white hover:bg-gray-300"
             }`}
+            whileHover={{ scale: 1.05 }}
           >
             Submit
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
       ) : (
-        <form
+        <motion.form
           onSubmit={handleSubmit}
-          className="w-full max-w-md space-y-4"
+          className="w-full max-w-3xl space-y-6"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
         >
-          <h2 className="text-2xl font-bold">Add Medium Story</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">Add <span className="text-blue-500">Medium Story</span></h2>
 
-          <label className="block">
-            Title:
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              placeholder="Story Title"
-              className={`w-full p-2 rounded border ${
-                isDarkMode ? "bg-black border-white" : "bg-white border-black"
-              }`}
-              required
-            />
-          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <motion.label className="block">
+              <span className="block font-medium text-lg">Title</span>
+              <motion.input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="Enter story title"
+                className={`w-full p-3 rounded-lg border text-lg ${
+                  isDarkMode ? "bg-black border-white" : "bg-white border-black"
+                }`}
+                whileFocus={{ scale: 1.05 }}
+                required
+              />
+            </motion.label>
 
-          <label className="block">
-            Link:
-            <input
-              type="url"
-              name="link"
-              value={formData.link}
-              onChange={handleChange}
-              placeholder="Story Link"
-              className={`w-full p-2 rounded border ${
-                isDarkMode ? "bg-black border-white" : "bg-white border-black"
-              }`}
-              required
-            />
-          </label>
+            <motion.label className="block">
+              <span className="block font-medium text-lg">Link</span>
+              <motion.input
+                type="url"
+                name="link"
+                value={formData.link}
+                onChange={handleChange}
+                placeholder="Enter story link"
+                className={`w-full p-3 rounded-lg border text-lg ${
+                  isDarkMode ? "bg-black border-white" : "bg-white border-black"
+                }`}
+                whileFocus={{ scale: 1.05 }}
+                required
+              />
+            </motion.label>
 
-          <label className="block">
-            Category:
-            <input
-              type="text"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              placeholder="Category"
-              className={`w-full p-2 rounded border ${
-                isDarkMode ? "bg-black border-white" : "bg-white border-black"
-              }`}
-              required
-            />
-          </label>
+            <motion.label className="block">
+              <span className="block font-medium text-lg">Category</span>
+              <motion.input
+                type="text"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                placeholder="Enter story category"
+                className={`w-full p-3 rounded-lg border text-lg ${
+                  isDarkMode ? "bg-black border-white" : "bg-white border-black"
+                }`}
+                whileFocus={{ scale: 1.05 }}
+                required
+              />
+            </motion.label>
 
-          <label className="block">
-            Thumbnail URL:
-            <input
-              type="url"
-              name="thumbnail"
-              value={formData.thumbnail}
-              onChange={handleChange}
-              placeholder="Thumbnail URL"
-              className={`w-full p-2 rounded border ${
-                isDarkMode ? "bg-black border-white" : "bg-white border-black"
-              }`}
-              required
-            />
-          </label>
+            <motion.label className="block">
+              <span className="block font-medium text-lg">Thumbnail URL</span>
+              <motion.input
+                type="url"
+                name="thumbnail"
+                value={formData.thumbnail}
+                onChange={handleChange}
+                placeholder="Enter thumbnail URL"
+                className={`w-full p-3 rounded-lg border text-lg ${
+                  isDarkMode ? "bg-black border-white" : "bg-white border-black"
+                }`}
+                whileFocus={{ scale: 1.05 }}
+                required
+              />
+            </motion.label>
+          </div>
 
-          <button
+          <motion.button
             type="submit"
-            className={`w-full p-2 rounded ${
+            className={`w-full p-3 rounded-lg text-lg font-semibold mt-4 ${
               isDarkMode
                 ? "bg-white text-black hover:bg-gray-700"
                 : "bg-black text-white hover:bg-gray-300"
             }`}
+            whileHover={{ scale: 1.05 }}
           >
             Submit Story
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
       )}
-    </div>
+    </motion.div>
   );
 };
 

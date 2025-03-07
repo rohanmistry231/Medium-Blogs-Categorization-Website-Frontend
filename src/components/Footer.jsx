@@ -1,6 +1,5 @@
 import React from "react";
 import { useTheme } from "../context/ThemeContext"; // Adjust the path if necessary
-import { Link } from "react-router-dom"; // Using Link for routing consistency
 
 const Footer = () => {
   const { theme } = useTheme();
@@ -22,73 +21,21 @@ const Footer = () => {
                 isDarkMode ? "text-gray-300" : "text-gray-800"
               }`}
             >
-              Walls<span className="text-blue-500">.Ai</span>
+              Medi<span className="text-blue-500">Hub</span>
             </h2>
             <p
               className={`mt-2 text-sm ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
-              Discover and download beautiful, high-quality wallpapers curated
-              just for you.
+              Discover and explore captivating Medium stories — thoughtfully categorized for your curiosity.
             </p>
-          </div>
-
-          {/* Quick Links */}
-          <div className="flex flex-col items-center md:items-start space-y-2">
-            <h3
-              className={`text-lg font-semibold ${
-                isDarkMode ? "text-gray-300" : "text-gray-800"
-              }`}
-            >
-              Quick Links
-            </h3>
-            <Link
-              to="/wallpapers"
-              className={`hover:text-blue-500 transition duration-300 ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              Wallpapers
-            </Link>
-            <Link
-              to="/categories"
-              className={`hover:text-blue-500 transition duration-300 ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              Categories
-            </Link>
-            <Link
-              to="/personalization"
-              className={`hover:text-blue-500 transition duration-300 ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              Personalized
-            </Link>
-            <Link
-              to="/contribution"
-              className={`hover:text-blue-500 transition duration-300 ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              Contribution
-            </Link>
-            <Link
-              to="/profile"
-              className={`hover:text-blue-500 transition duration-300 ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              Developer's Profile
-            </Link>
           </div>
 
           {/* Social Media */}
           <div className="text-center md:text-right">
             <h3
-              className={`text-lg font-semibold ${
+              className={`text-lg font-semibold mt-4 ${
                 isDarkMode ? "text-gray-300" : "text-gray-800"
               }`}
             >
@@ -147,8 +94,8 @@ const Footer = () => {
               : "border-gray-300 text-gray-500"
           }`}
         >
-          &copy; {new Date().getFullYear()} Walls
-          <span className="text-blue-500">.Ai</span>. All rights reserved.
+          &copy; {new Date().getFullYear()} Medi
+          <span className="text-blue-500">Hub</span>. All rights reserved.
         </div>
       </div>
     </footer>

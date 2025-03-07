@@ -1,71 +1,68 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const Profile = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    bio: "",
-    avatarUrl: "",
+  // eslint-disable-next-line
+  const [profile, setProfile] = useState({
+    name: "Rohan Mistry",
+    email: "rohanmistry231@gmail.com",
+    bio: "Curating and categorizing insightful Medium blogs for easy discovery.",
+    avatarUrl: "profile.jpg",
     socialLinks: {
-      portfolio: "",
-      linkedin: "",
-      github: "",
-      medium: "",
+      portfolio: "https://irohanportfolio.netlify.app",
+      linkedin: "https://linkedin.com/in/rohan-mistry-493987202",
+      github: "https://github.com/rohanmistry231",
+      medium: "https://medium.com/@rohanmistry231",
     },
-    wallpaperCount: 0,
-    topWallpaper: "",
+    wallsaifrontend:
+      "https://github.com/rohanmistry231/Medium-Blogs-Categorization-Website-Frontend.git",
+    wallsaibackend:
+      "https://github.com/rohanmistry231/Medium-Blogs-Categorization-Website-Backend.git",
   });
 
+  const [storyCount, setStoryCount] = useState(0);
+  const [categoryCount, setCategoryCount] = useState(0);
+
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
         setIsLoading(true);
+        const response = await axios.get(
+          "https://medium-blogs-categorization-website-backend.vercel.app/stories"
+        );
 
-        // Simulated API response
-        const userData = {
-          name: "Rohan Mistry",
-          email: "rohanmistry231@gmail.com",
-          bio: "A passionate wallpaper designer and developer, sharing beautiful and high-quality images with the world.",
-          avatarUrl: "profile.jpg",
-          socialLinks: {
-            portfolio: "https://irohanportfolio.netlify.app",
-            linkedin: "https://linkedin.com/in/rohan-mistry-493987202",
-            github: "https://github.com/rohanmistry231",
-            wallsaifrontend:
-              "https://github.com/rohanmistry231/AI-Wallpapers-Frontend",
-            wallsaibackend:
-              "https://github.com/rohanmistry231/AI-Wallpapers-Backend",
-            medium: "https://medium.com/@rohanmistry231",
-          },
-          wallpaperCount: 3300,
-          topWallpaper: "top-wallpaper.jpg",
-        };
+        const stories = response.data;
 
-        setUser(userData);
+        setStoryCount(stories.length);
+
+        const uniqueCategories = [
+          ...new Set(stories.map((story) => story.category)),
+        ];
+        setCategoryCount(uniqueCategories.length);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchUserData();
+    fetchData();
   }, []);
 
   return (
     <div
-      className={`min-h-screen p-6 mt-14 transition-colors duration-300 ${
+      className={`max-h-screen p-6 sm:p-8 mt-14 transition-colors duration-300 ${
         isDarkMode ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
       <motion.div
-        className={`max-w-4xl mx-auto rounded-lg shadow-lg p-6 ${
+        className={`max-w-4xl mx-auto rounded-lg ${
           isDarkMode ? "bg-black text-white" : "bg-white text-black"
         }`}
         initial={{ opacity: 0 }}
@@ -73,183 +70,149 @@ const Profile = () => {
         transition={{ duration: 1 }}
       >
         {isLoading ? (
-          <div className="flex justify-center items-center min-h-screen">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white border-solid"></div>
+          <div className="flex justify-center items-center min-h-[50vh]">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-gray-500"></div>
           </div>
         ) : (
           <>
             {/* Profile Header */}
             <motion.div
-              className="flex items-center space-x-4"
+              className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
             >
               <img
-                src={user.avatarUrl}
-                alt="User Avatar"
-                className="w-24 h-24 rounded-full object-cover border-2 border-gray-700"
-                loading="lazy"
+                src={profile.avatarUrl}
+                alt="Profile Avatar"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-gray-500"
               />
-              <div>
-                <h1 className="text-3xl font-bold">{user.name}</h1>
+              <div className="text-center sm:text-left">
+                <h1 className="text-3xl sm:text-4xl font-bold">
+                  {profile.name}
+                </h1>
                 <a
-                  href={`mailto:${user.email}`}
-                  className="text-sm text-gray-500 hover:text-gray-700"
+                  href={`mailto:${profile.email}`}
+                  className={`text-sm ${
+                    isDarkMode
+                      ? "text-gray-400 hover:text-gray-300"
+                      : "text-gray-600 hover:text-gray-800"
+                  }`}
                 >
-                  {user.email}
+                  {profile.email}
                 </a>
               </div>
             </motion.div>
 
             {/* Bio Section */}
             <motion.div
-              className="mt-6"
+              className="mt-6 text-center sm:text-left"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
             >
               <p
-                className={`mt-2 text-lg ${
-                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                className={`text-lg ${
+                  isDarkMode ? "text-gray-400" : "text-gray-700"
                 }`}
               >
-                {user.bio}
+                {profile.bio}
               </p>
             </motion.div>
 
-            {/* Social Media Links */}
+            {/* Blog Stats */}
             <motion.div
-              className="mt-6"
+              className="mt-5 grid grid-cols-2 gap-4 text-center"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.7 }}
             >
-              <h3 className="text-lg font-medium">Social Media Links</h3>
-              <div className="mt-2 space-x-4">
-                <a
-                  href={user.socialLinks.portfolio || "#"}
-                  className="text-lg underline hover:text-gray-400"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Portfolio
-                </a>
-                <a
-                  href={user.socialLinks.linkedin || "#"}
-                  className="text-lg underline hover:text-gray-400"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  href={user.socialLinks.github || "#"}
-                  className="text-lg underline hover:text-gray-400"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
-                <a
-                  href={user.socialLinks.medium || "#"}
-                  className="text-lg underline hover:text-gray-400"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Medium
-                </a>
+              <div
+                className={`p-4 rounded-lg shadow ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-gray-200 text-black"
+                }`}
+              >
+                <h2 className="text-3xl font-bold">{storyCount}</h2>
+                <p className="text-lg">Medium Stories</p>
               </div>
-            </motion.div>
 
-            {/* Wallpaper Showcase Section */}
-            <motion.div
-              className={`mt-10 p-6 rounded-lg shadow-lg ${
-                isDarkMode ? "bg-gray-900 text-white" : "bg-gray-200 text-black"
-              }`}
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1 }}
-            >
-              <h2 className="text-2xl font-semibold text-center">
-                Wallpaper Showcase
-              </h2>
-              <p className="mt-4 text-center text-lg">
-                Over {user.wallpaperCount}+ stunning wallpapers available for
-                download and use!
-              </p>
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <motion.div
-                  className="bg-black text-white py-2 px-4 rounded-lg shadow hover:bg-gray-800"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 1.2 }}
-                >
-                  High-Quality Designs
-                </motion.div>
-                <motion.div
-                  className="bg-black text-white py-2 px-4 rounded-lg shadow hover:bg-gray-800"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 1.4 }}
-                >
-                  Easy to Download
-                </motion.div>
-                <motion.div
-                  className="bg-black text-white py-2 px-4 rounded-lg shadow hover:bg-gray-800"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 1.6 }}
-                >
-                  Variety of Styles
-                </motion.div>
-                <motion.div
-                  className="bg-black text-white py-2 px-4 rounded-lg shadow hover:bg-gray-800"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 1.8 }}
-                >
-                  Free to Use
-                </motion.div>
+              <div
+                className={`p-4 rounded-lg shadow ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-gray-200 text-black"
+                }`}
+              >
+                <h2 className="text-3xl font-bold">{categoryCount}</h2>
+                <p className="text-lg">Categories</p>
               </div>
             </motion.div>
 
             {/* GitHub Repository Section */}
             <motion.div
-              className={`mt-10 p-6 rounded-lg shadow-lg mb-2 ${
-                isDarkMode ? "bg-gray-900 text-white" : "bg-gray-200 text-black"
+              className={`mt-5 p-6 rounded-lg shadow mb-2 ${
+                isDarkMode ? "bg-gray-800 text-white" : "bg-gray-200 text-black"
               }`}
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.5 }}
+              transition={{ duration: 1, delay: 0.9 }}
             >
               <h2 className="text-2xl font-semibold text-center">
-                My Walls.ai Codebase
+                MediHub Codebase
               </h2>
               <p className="mt-4 text-center text-lg">
                 Explore the complete source code for this project on GitHub.
                 Learn how it’s built and feel free to contribute or star the
                 repository.
               </p>
-              <div className="mt-4 text-center">
+              <div className="mt-4 flex justify-center gap-4">
                 <a
-                  href={user.socialLinks.wallsaifrontend || "#"}
-                  className="inline-block bg-black text-white py-2 px-4 rounded-lg shadow hover:bg-gray-800"
+                  href={profile.wallsaifrontend || "#"}
+                  className="bg-black text-white py-2 px-4 rounded-lg shadow hover:bg-gray-700"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Walls.ai Frontend CodeBase
+                  MediHub Frontend
+                </a>
+                <a
+                  href={profile.wallsaibackend || "#"}
+                  className="bg-black text-white py-2 px-4 rounded-lg shadow hover:bg-gray-700"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Medihub Backend
                 </a>
               </div>
-              <div className="mt-4 text-center">
-                <a
-                  href={user.socialLinks.wallsaibackend || "#"}
-                  className="inline-block bg-black text-white py-2 px-4 rounded-lg shadow hover:bg-gray-800"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Walls.ai Backend CodeBase
-                </a>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div
+              className="mt-5"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.9 }}
+            >
+              <h3 className="text-2xl font-semibold text-center sm:text-left">
+                Connect with Me
+              </h3>
+              <div className="flex flex-wrap gap-3 justify-center sm:justify-start mt-4">
+                {Object.entries(profile.socialLinks).map(([key, link]) => (
+                  <a
+                    key={key}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`px-5 py-2 rounded-lg font-medium text-sm transition border ${
+                      isDarkMode
+                        ? "border-gray-700 text-gray-300 hover:bg-gray-800"
+                        : "border-gray-300 text-gray-800 hover:bg-gray-200"
+                    }`}
+                  >
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </a>
+                ))}
               </div>
             </motion.div>
           </>
