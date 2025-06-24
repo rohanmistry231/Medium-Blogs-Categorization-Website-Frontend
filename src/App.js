@@ -6,6 +6,7 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import Upload from "./pages/Upload/Upload";
+import AdminPanel from "./pages/Admin/AdminPanel";
 
 function App() {
   const { isDarkMode } = useTheme();
@@ -28,6 +29,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/upload" element={<Upload />} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </main>
         <Footer />
