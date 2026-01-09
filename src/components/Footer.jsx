@@ -73,7 +73,7 @@ const Footer = () => {
                 Medium
               </a>
               <a
-                href="https://irohanportfolio.netlify.app/"
+                href="https://irohanportfolio.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`hover:text-blue-500 ${
